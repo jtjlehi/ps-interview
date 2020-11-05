@@ -7,17 +7,26 @@ class Names extends Component {
         super(props);
         this.state = { names: []}
     }
-    getJSONData() {
-        fetch(localHost + 'MOCK_DATA.json')
-            .then( response => response.json() )
-            .then(names => this.setState({ names: names }))
+    async getJSONData() {
+        const response = await fetch(localHost + 'MOCK_DATA.json');
+        const names = await response.json();
+        this.setState({ names: names });
+        return names
+    }
+    async getNames() {
+        const names = await this.getJSONData()
+        this.setState({
+            nameComponents: names.map(
+                (name) => <NameComponent name={name} key={name.id}>words</NameComponent>
+            )
+        })
     }
     componentDidMount() {
-        this.getJSONData()
+        this.getNames()
     }
     render() { 
         return (<section>
-            <NameComponent></NameComponent>
+            {this.state.nameComponents}
         </section> );
     }
 }
