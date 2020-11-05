@@ -13,12 +13,19 @@ class NameComponents extends Component {
             fillStar: <img src={localHost + 'pictures/fill-star.png'} alt='filled in star'></img>,
             hollowStar: <img src={localHost + 'pictures/hollow-star.png'} alt='hollow start'></img>
         }
+
     }
     displayFavorite() {
         this.setState((state) => ({
             favoriteDisplay: state.isFavorite ?
                 state.fillStar : state.hollowStar
         }))
+    }
+    toggleFavorite = () => {
+        this.setState((state) => ({
+            isFavorite: state.isFavorite ? false : true
+        }))
+        this.displayFavorite()
     }
     componentDidMount() {
         this.displayFavorite()
@@ -28,7 +35,7 @@ class NameComponents extends Component {
             <section>
                 <span>{this.state.firstName}</span>
                 <span>{this.state.lastName}</span>
-                <span>{this.state.favoriteDisplay}</span>
+                <button onClick={this.toggleFavorite}>{this.state.favoriteDisplay}</button>
             </section>
         );
     }
