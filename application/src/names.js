@@ -44,7 +44,11 @@ class Names extends Component {
     async componentDidMount() {
         await this.getNames();
     };
+    componentDidUpdate() {
+        console.log(this.props.names);
+    }
     render() {
+        console.log(this.props.names)
         return (<section>
             {this.state.nameComponents}
         </section> );
